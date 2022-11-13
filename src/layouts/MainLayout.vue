@@ -10,12 +10,33 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
           />
-        <q-toolbar-title>Müllkalender Waidring</q-toolbar-title>
+        <q-toolbar-title>{{ $t("MainLayoutHeader") }}</q-toolbar-title>
+        <q-select
+          v-model="locale"
+          :options="localeOptions"
+          dense
+          borderless
+          emit-value
+          map-options
+          options-dense
+          style="min-width: 150px"
+          >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.label }}</q-item-label>
+              </q-item-section>
+              <q-item-section avatar>
+                <country-flag :country="scope.opt.countryIcon" size="small" />
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </q-toolbar>
     </q-header>
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
+      show-if-above="true"
       side="left"
       bordered
       >
@@ -39,11 +60,24 @@
 </template>
 
 <script>
+import { useI18n } from 'vue-i18n'
 import LocationCard from 'components/LocationCard.vue'
+import CountryFlag from 'vue-country-flag-next'
 export default {
   name: 'MainLayout',
   components: {
-    LocationCard
+    LocationCard,
+    CountryFlag
+  },
+  setup () {
+    const { locale } = useI18n({ useScope: 'global' })
+    return {
+      locale,
+      localeOptions: [
+        { value: 'en-US', label: 'English', countryIcon: 'gb' },
+        { value: 'de', label: 'German', countryIcon: 'de' }
+      ]
+    }
   },
   data () {
     return {

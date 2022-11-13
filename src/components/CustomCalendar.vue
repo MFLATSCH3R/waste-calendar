@@ -32,7 +32,7 @@ export default {
     Calendar
   },
   props: {
-    todos: []
+    todos: Array
   },
   computed: {
     layout () {
