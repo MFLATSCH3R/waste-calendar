@@ -12,9 +12,11 @@
           />
         <q-toolbar-title>{{ $t("MainLayoutHeader") }}</q-toolbar-title>
         <q-select
+          color="white"
+          bg-color="primary"
           v-model="locale"
           :options="localeOptions"
-          dense
+          filled
           borderless
           emit-value
           map-options
@@ -22,8 +24,8 @@
           style="min-width: 150px"
           >
           <template v-slot:option="scope">
-            <q-item v-bind="scope.itemProps">
-              <q-item-section>
+            <q-item v-bind="scope.itemProps" class="bg-primary">
+              <q-item-section color="white">
                 <q-item-label>{{ scope.opt.label }}</q-item-label>
               </q-item-section>
               <q-item-section avatar>

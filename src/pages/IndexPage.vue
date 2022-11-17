@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { getCssVar } from 'quasar'
 import moment from 'moment'
 import CustomCalendar from 'src/components/CustomCalendar.vue'
 export default {
@@ -134,7 +135,7 @@ export default {
         {
           key: 4,
           highlight: false,
-          dot: 'green',
+          dot: getCssVar('green'),
           bar: false,
           content: 'red',
           dates: [
