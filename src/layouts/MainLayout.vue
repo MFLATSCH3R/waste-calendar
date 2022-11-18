@@ -23,7 +23,9 @@
           options-dense
           style="min-width: 150px"
           >
-          <template v-slot:option="scope">
+          <template
+            v-slot:option="scope"
+            >
             <q-item v-bind="scope.itemProps" class="bg-primary">
               <q-item-section color="white">
                 <q-item-label>{{ scope.opt.label }}</q-item-label>
