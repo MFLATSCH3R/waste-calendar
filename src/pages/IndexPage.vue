@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { getCssVar } from 'quasar'
+import axios from 'axios'
+// import { getCssVar } from 'quasar'
 import moment from 'moment'
 import CustomCalendar from 'src/components/CustomCalendar.vue'
 export default {
@@ -16,6 +17,7 @@ export default {
   data () {
     return {
       attrs: [
+      /*
         {
           key: 0,
           highlight: false,
@@ -166,7 +168,39 @@ export default {
             description: 'Problemstoffe'
           }
         }
+        */
       ]
+    }
+  },
+  mounted () {
+    axios.get('data/data.json').then((res) => {
+      this.processData(res.data)
+    }).catch((err) => {
+      console.warn(err)
+    })
+  },
+  methods: {
+    processData (data) {
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
+          const calendarData = {}
+          calendarData.key = i
+          calendarData.highlight = false
+          calendarData.dot = data[i].color
+          calendarData.popover = true
+          calendarData.customData = {
+            description: data[i].description
+          }
+          calendarData.dates = []
+
+          const dates = data[i].dates
+          for (let j = 0; j < dates.length; j++) {
+            calendarData.dates.push(new Date(moment(dates[j], 'DD.MM.YYYY')))
+          }
+
+          this.attrs.push(calendarData)
+        }
+      }
     }
   }
 }
